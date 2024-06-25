@@ -2,17 +2,11 @@ export default function Header({
   cart = [],
   increaseQty,
   decreaseQty,
-  vaciarCarrito,
-  quitarItem,
+  clearCart,
+  removeItem,
+  obtenerTotal
 }) {
-  function obtenerTotal(cart) {
-    //Obteniendo el total del carrito
-    let total = 0;
-    cart.forEach((item) => {
-      total += item.subTotal;
-    });
-    return total;
-  }
+  
 
   return (
     <>
@@ -23,7 +17,7 @@ export default function Header({
               <a href="index.html">
                 <img
                   className="img-fluid"
-                  src="./public/img/logo.svg"
+                  src="./img/logo.svg"
                   alt="imagen logo"
                 />
               </a>
@@ -32,7 +26,7 @@ export default function Header({
               <div className="carrito">
                 <img
                   className="img-fluid"
-                  src="./public/img/carrito.png"
+                  src="./img/carrito.png"
                   alt="imagen carrito"
                 />
 
@@ -67,7 +61,7 @@ export default function Header({
                                 <td>
                                   <img
                                     className="img-fluid"
-                                    src={`./public/img/${image}.jpg`}
+                                    src={`./img/${image}.jpg`}
                                     alt="imagen guitarra"
                                   />
                                 </td>
@@ -95,7 +89,7 @@ export default function Header({
                                   <button
                                     className="btn btn-danger"
                                     type="button"
-                                    onClick={() => quitarItem(item)}
+                                    onClick={() => removeItem(item)}
                                   >
                                     X
                                   </button>
@@ -111,7 +105,7 @@ export default function Header({
                       </p>
                       <button
                         className="btn btn-dark w-100 mt-3 p-2"
-                        onClick={vaciarCarrito}
+                        onClick={clearCart}
                       >
                         Vaciar Carrito
                       </button>
