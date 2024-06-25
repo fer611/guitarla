@@ -1,6 +1,7 @@
 export default function Header({
   cart = [],
-  addQuantity,
+  increaseQty,
+  decreaseQty,
   vaciarCarrito,
   quitarItem,
 }) {
@@ -12,26 +13,6 @@ export default function Header({
     });
     return total;
   }
-
-  const handleUpdateQuantity = (item, quantity) => {
-    //Buscar el item en el carrito
-    const indice = cart.findIndex((guitar) => guitar.id === item.id);
-
-    //Si mayor que cero, encontró el item
-    if (indice >= 0) {
-      //Una vez encontrado el item, verificamos si su cantidad es >0
-      const guitar = cart[indice];
-      if (guitar.quantity === 1 && quantity === -1) {
-        //Si llega a 1, y si quantity es restar... lo  podemos quitar del carrito
-        //quitarItem(item);
-      } else {
-        //Actualizamos su cantidad si es > 0
-        addQuantity(indice, quantity);
-      }
-    } else {
-      console.log("No se encontró el item");
-    }
-  };
 
   return (
     <>
@@ -96,9 +77,7 @@ export default function Header({
                                   <button
                                     type="button"
                                     className="btn btn-dark"
-                                    onClick={() =>
-                                      handleUpdateQuantity(item, -1)
-                                    }
+                                    onClick={() => decreaseQty(id)}
                                   >
                                     -
                                   </button>
@@ -106,9 +85,7 @@ export default function Header({
                                   <button
                                     type="button"
                                     className="btn btn-dark"
-                                    onClick={() =>
-                                      handleUpdateQuantity(item, 1)
-                                    }
+                                    onClick={() => increaseQty(id)}
                                   >
                                     +
                                   </button>
