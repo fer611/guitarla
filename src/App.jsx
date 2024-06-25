@@ -16,8 +16,10 @@ function App() {
 
     //el método findIndex devuelve -1 cuando no encuentra coincidencias
     if (indice >= 0) {
-      //Agregando +1
-      addQuantity(indice, 1);
+      const updateCart = [...cart];
+      //Obteniendo el item repetido
+      const item = updateCart[indice];
+      increaseQty(item.id, 1);
     } else {
       item.quantity = 1;
       item.subTotal = item.quantity * item.price;
@@ -25,26 +27,14 @@ function App() {
     }
   }
 
-  function addQuantity(indice, quantity) {
-    const updateCart = [...cart];
-    //Obteniendo el item repetido
-    const item = updateCart[indice];
-    //Incrementando en 1
-    item.quantity = item.quantity + quantity;
-    //Calculando su nuevo total
-    item.subTotal = item.price * item.quantity;
-    //Actualizando el item en el nuevo carrito
-    updateCart[indice] = item;
-    //Seteamos el carrito al estado
-    setCart(updateCart);
-  }
-
   const increaseQty = (id, cantidad = 1) => {
     const newCart = cart.map((item) => {
       if (item.id === id && item.quantity < MAX_ITEMS) {
+        const quantity = item.quantity + cantidad;
         return {
           ...item,
-          quantity: item.quantity + cantidad,
+          quantity: quantity,
+          subTotal: quantity * item.price
         };
       }
       return item;
@@ -53,12 +43,13 @@ function App() {
   };
 
   const decreaseQty = (id, cantidad = 1) => {
-
     const newCart = cart.map((item) => {
       if (item.id === id && item.quantity > MIN_ITEMS) {
+        const quantity = item.quantity - cantidad;
         return {
           ...item,
-          quantity: item.quantity - cantidad,
+          quantity: quantity,
+          subTotal : quantity * item.price
         };
       }
       return item;
@@ -90,7 +81,7 @@ function App() {
         increaseQty={increaseQty}
         vaciarCarrito={vaciarCarrito}
         quitarItem={quitarItem}
-        decreaseQty = {decreaseQty}
+        decreaseQty={decreaseQty}
       />
       <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
